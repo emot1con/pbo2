@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Pegawai - Sistem Presensi Pegawai</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="header">
+            <div class="user-info">
+                <span class="user-name" id="userName">Memuat...</span>
+                <span class="user-role" id="userRole">Pegawai - Divisi</span>
+            </div>
+            <button class="btn-logout" id="btnLogout">Keluar</button>
+        </div>
+
+        <div id="alertBox" class="alert" style="display: none;"></div>
+
+        <div class="attendance-grid">
+            <!-- Card Datang -->
+            <div class="attendance-card">
+                <h3>Absen Datang</h3>
+                <div class="time-badge" id="limitDatang">Maksimal 08:00</div>
+                <button id="btnDatang" class="btn btn-success" disabled>Presensi Datang</button>
+                <div id="statusDatang" class="status-text">Memuat...</div>
+            </div>
+
+            <!-- Card Pulang -->
+            <div class="attendance-card">
+                <h3>Absen Pulang</h3>
+                <div class="time-badge" id="limitPulang">Mulai 15:00</div>
+                <button id="btnPulang" class="btn btn-danger" disabled>Presensi Pulang</button>
+                <div id="statusPulang" class="status-text">Memuat...</div>
+            </div>
+        </div>
+
+        <div style="text-align: center; color: var(--text-secondary); font-size: 13px;">
+            Pastikan Anda terhubung ke Wi-Fi kantor untuk melakukan presensi.
+        </div>
+    </div>
+
+    <script src="/js/pegawai.js"></script>
+</body>
+</html>

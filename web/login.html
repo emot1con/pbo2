@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Sistem Presensi Pegawai</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Presensi Pegawai</h2>
+        <p class="subtitle">Masuk untuk melakukan presensi harian</p>
+
+        <div id="alertBox" class="alert" style="display: none;"></div>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="nama@perusahaan.com" required autocomplete="email">
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="••••••••" required autocomplete="current-password">
+            </div>
+
+            <button type="submit" id="btnSubmit" class="btn btn-primary">Masuk</button>
+        </form>
+
+        <div class="footer-text">
+            Belum punya akun? <a href="/register">Daftar Pegawai</a>
+        </div>
+    </div>
+
+    <script src="/js/login.js"></script>
+</body>
+</html>

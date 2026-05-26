@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pendaftaran Pegawai - Sistem Presensi Pegawai</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Daftar Pegawai Baru</h2>
+        <p class="subtitle">Buat akun untuk mencatat presensi harian Anda</p>
+
+        <div id="alertBox" class="alert" style="display: none;"></div>
+
+        <form id="registerForm">
+            <div class="form-group">
+                <label for="nama">Nama Lengkap</label>
+                <input type="text" id="nama" placeholder="Budi Santoso" required autocomplete="name">
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Perusahaan</label>
+                <input type="email" id="email" placeholder="budi@perusahaan.com" required autocomplete="email">
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="••••••••" required autocomplete="new-password">
+            </div>
+
+            <div class="form-group">
+                <label for="jabatan">Jabatan</label>
+                <input type="text" id="jabatan" placeholder="Staff IT / Manager / dll" required>
+            </div>
+
+            <div class="form-group">
+                <label for="divisi">Divisi</label>
+                <input type="text" id="divisi" placeholder="Teknologi Informasi / Keuangan / dll" required>
+            </div>
+
+            <button type="submit" id="btnSubmit" class="btn btn-primary">Daftar Sekarang</button>
+        </form>
+
+        <div class="footer-text">
+            Sudah punya akun? <a href="/login">Masuk</a>
+        </div>
+    </div>
+
+    <script src="/js/register.js"></script>
+</body>
+</html>

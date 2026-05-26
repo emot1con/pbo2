@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Admin - Sistem Presensi Pegawai</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="header">
+            <div class="user-info">
+                <span class="user-name" id="adminName">Administrator</span>
+                <span class="user-role">Role: Admin</span>
+            </div>
+            <button class="btn-logout" id="btnLogout">Keluar</button>
+        </div>
+
+        <div id="alertBox" class="alert" style="display: none;"></div>
+
+        <div class="info-bar">
+            <div>
+                Tanggal Hari Ini: <strong id="currentDate">-</strong>
+            </div>
+            <div>
+                Total Pegawai Hadir: <strong id="totalHadir">0</strong>
+            </div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+            <h3 style="font-size: 18px; font-weight: 600;">Daftar Kehadiran Pegawai Hari Ini</h3>
+            <button id="btnRefresh" class="btn btn-primary" style="width: auto; padding: 6px 12px; font-size: 13px;">Segarkan</button>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Pegawai</th>
+                        <th>Jabatan</th>
+                        <th>Divisi</th>
+                        <th>Jam Masuk</th>
+                        <th>Jam Keluar</th>
+                        <th>Status Masuk</th>
+                        <th>Status Pulang</th>
+                    </tr>
+                </thead>
+                <tbody id="attendanceTableBody">
+                    <tr>
+                        <td colspan="7" style="text-align: center; color: var(--text-secondary);">Memuat data presensi...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="/js/admin.js"></script>
+</body>
+</html>
