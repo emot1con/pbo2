@@ -18,12 +18,16 @@
 
         <div id="alertBox" class="alert" style="display: none;"></div>
 
-        <div class="info-bar">
-            <div>
-                Tanggal Hari Ini: <strong id="currentDate">-</strong>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px;">
+            <div class="info-bar" style="margin-bottom: 0; flex-direction: column; justify-content: center; align-items: center; gap: 10px;">
+                <div style="font-size: 16px;">Tanggal Hari Ini</div>
+                <strong id="currentDate" style="font-size: 20px; color: var(--text-primary);">-</strong>
+                <div style="font-size: 16px; margin-top: 10px;">Total Pegawai Hadir</div>
+                <strong id="totalHadir" style="font-size: 36px; color: var(--text-primary);">0</strong>
             </div>
-            <div>
-                Total Pegawai Hadir: <strong id="totalHadir">0</strong>
+            
+            <div class="chart-container" style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-color); border-radius: 12px; padding: 16px; display: flex; justify-content: center; align-items: center; min-height: 200px;">
+                <canvas id="attendanceChart"></canvas>
             </div>
         </div>
 
@@ -54,6 +58,7 @@
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="/js/admin.js"></script>
 </body>
 </html>

@@ -75,9 +75,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    let attendanceChartInstance = null;
+
     function renderTable(list) {
         tableBody.innerHTML = '';
         totalHadir.textContent = list.length;
+
+        let tepatWaktuCount = 0;
+        let terlambatCount = 0;
 
         if (list.length === 0) {
             tableBody.innerHTML = `
@@ -87,10 +92,17 @@ document.addEventListener('DOMContentLoaded', () => {
                     </td>
                 </tr>
             `;
+            updateChart(0, 0);
             return;
         }
 
         list.forEach(row => {
+            if (row.status_masuk === 'TEPAT_WAKTU') {
+                tepatWaktuCount++;
+            } else if (row.status_masuk === 'TERLAMBAT') {
+                terlambatCount++;
+            }
+
             const tr = document.createElement('tr');
             
             const badgeMasukClass = row.status_masuk === 'TEPAT_WAKTU' ? 'badge-tepat' : 'badge-terlambat';
@@ -111,6 +123,48 @@ document.addEventListener('DOMContentLoaded', () => {
             
             tableBody.appendChild(tr);
         });
+
+        updateChart(tepatWaktuCount, terlambatCount);
+    }
+
+    function updateChart(tepat, terlambat) {
+        const ctx = document.getElementById('attendanceChart');
+        if (!ctx) return;
+        
+        const data = {
+            labels: ['Tepat Waktu', 'Terlambat'],
+            datasets: [{
+                data: [tepat, terlambat],
+                backgroundColor: ['#10b981', '#ef4444'],
+                borderWidth: 0,
+                hoverOffset: 4
+            }]
+        };
+
+        if (attendanceChartInstance) {
+            attendanceChartInstance.data = data;
+            attendanceChartInstance.update();
+        } else {
+            attendanceChartInstance = new Chart(ctx, {
+                type: 'doughnut',
+                data: data,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: '#f3f4f6',
+                                font: {
+                                    family: "'Inter', sans-serif"
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
     }
 
     function escapeHtml(str) {

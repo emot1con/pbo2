@@ -49,7 +49,7 @@ public class PresensiService {
             }
 
             // Determine status
-            LocalTime limit = LocalTime.of(8, 0); // 08:00
+            LocalTime limit = LocalTime.of(12, 0); // 08:00
             String status = now.isAfter(limit) ? "TERLAMBAT" : "TEPAT_WAKTU";
 
             // Insert attendance
@@ -173,11 +173,12 @@ public class PresensiService {
         LocalDate today = LocalDate.now();
 
         try (Connection conn = DatabaseConnection.getInstance()) {
-            String sql = "SELECT u.nama, u.jabatan, u.divisi, p.jam_masuk, p.jam_keluar, p.status_masuk, p.status_pulang " +
-                         "FROM users u " +
-                         "JOIN presensi p ON u.id = p.user_id " +
-                         "WHERE p.tanggal = ? " +
-                         "ORDER BY p.jam_masuk DESC";
+            String sql = "SELECT u.nama, u.jabatan, u.divisi, p.jam_masuk, p.jam_keluar, p.status_masuk, p.status_pulang "
+                    +
+                    "FROM users u " +
+                    "JOIN presensi p ON u.id = p.user_id " +
+                    "WHERE p.tanggal = ? " +
+                    "ORDER BY p.jam_masuk DESC";
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
                 stmt.setDate(1, java.sql.Date.valueOf(today));
                 try (ResultSet rs = stmt.executeQuery()) {
@@ -186,15 +187,16 @@ public class PresensiService {
                         map.put("nama", rs.getString("nama"));
                         map.put("jabatan", rs.getString("jabatan"));
                         map.put("divisi", rs.getString("divisi"));
-                        
+
                         Time m = rs.getTime("jam_masuk");
                         map.put("jam_masuk", m != null ? m.toString() : "-");
                         map.put("status_masuk", rs.getString("status_masuk"));
 
                         Time k = rs.getTime("jam_keluar");
                         map.put("jam_keluar", k != null ? k.toString() : "-");
-                        map.put("status_pulang", rs.getString("status_pulang") != null ? rs.getString("status_pulang") : "-");
-                        
+                        map.put("status_pulang",
+                                rs.getString("status_pulang") != null ? rs.getString("status_pulang") : "-");
+
                         list.add(map);
                     }
                 }
