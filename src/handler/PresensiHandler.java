@@ -44,7 +44,12 @@ public class PresensiHandler implements HttpHandler {
             }
 
             // Get client IP
-            String clientIp = exchange.getRemoteAddress().getAddress().getHostAddress();
+            String clientIp = exchange.getRequestHeaders().getFirst("X-Forwarded-For");
+            if (clientIp == null || clientIp.isEmpty() || "unknown".equalsIgnoreCase(clientIp)) {
+                clientIp = exchange.getRemoteAddress().getAddress().getHostAddress();
+            } else {
+                clientIp = clientIp.split(",")[0].trim();
+            }
 
             if ("/api/presensi/datang".equals(path) && "POST".equalsIgnoreCase(method)) {
                 try {

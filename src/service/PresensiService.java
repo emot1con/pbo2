@@ -17,12 +17,36 @@ public class PresensiService {
     private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm:ss");
 
     private static boolean isValidIp(String clientIp) {
-        String allowedIp = EnvLoader.get("ALLOWED_IP", "127.0.0.1");
+        String allowedIpStr = EnvLoader.get("ALLOWED_IP", "127.0.0.1");
+        
         // Normalize IPv6 loopback to IPv4 loopback
-        if ("0:0:0:0:0:0:0:1".equals(clientIp)) {
+        if ("0:0:0:0:0:0:0:1".equals(clientIp) || "::1".equals(clientIp)) {
             clientIp = "127.0.0.1";
         }
-        return allowedIp.equals(clientIp);
+        
+        // Normalize IPv6-mapped IPv4 (e.g. ::ffff:192.168.1.13) to standard IPv4
+        if (clientIp != null && clientIp.startsWith("::ffff:")) {
+            clientIp = clientIp.substring(7);
+        }
+        
+        if (clientIp == null) {
+            return false;
+        }
+
+        String[] allowedIps = allowedIpStr.split(",");
+        for (String ip : allowedIps) {
+            ip = ip.trim();
+            // Allow wildcard matching for subnets, e.g., 192.168.1.*
+            if (ip.endsWith(".*")) {
+                String prefix = ip.substring(0, ip.length() - 2);
+                if (clientIp.startsWith(prefix)) {
+                    return true;
+                }
+            } else if (ip.equals(clientIp)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public static Map<String, Object> absenDatang(int userId, String clientIp) throws Exception {
